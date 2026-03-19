@@ -3,6 +3,7 @@ import { useTransactions } from '../hooks/useTransactions';
 import { useCurrency } from '../hooks/useCurrency';
 import { LuTrash2 as Trash2, LuPencil as Edit, LuRefreshCw as RefreshCw, LuArrowUpRight as ArrowUpRight, LuArrowDownRight as ArrowDownRight } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const TransactionCard = ({ transaction }) => {
   const { deleteTransaction } = useTransactions();
@@ -11,7 +12,13 @@ const TransactionCard = ({ transaction }) => {
   const isIncome = transaction.type === 'income';
 
   return (
-    <div className="glass-panel" style={{ padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      transition={{ duration: 0.3 }}
+      className="glass-panel" style={{ padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}
+    >
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <div style={{ 
           width: '48px', 
@@ -76,7 +83,7 @@ const TransactionCard = ({ transaction }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

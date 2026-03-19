@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchExchangeRates } from '../services/api';
 
 export const FinanceContext = createContext();
 
@@ -18,15 +18,11 @@ export const FinanceProvider = ({ children }) => {
   const [exchangeRates, setExchangeRates] = useState({ INR: 1 });
 
   useEffect(() => {
-    const fetchRates = async () => {
-      try {
-        const response = await axios.get('https://api.exchangerate-api.com/v4/latest/INR');
-        setExchangeRates(response.data.rates);
-      } catch (error) {
-        console.error('Error fetching exchange rates:', error);
-      }
+    const loadRates = async () => {
+      const rates = await fetchExchangeRates('INR');
+      setExchangeRates(rates);
     };
-    fetchRates();
+    loadRates();
   }, []);
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import TransactionList from '../components/TransactionList';
 import { useCurrency } from '../hooks/useCurrency';
 import { LuArrowUpRight as ArrowUpRight, LuArrowDownRight as ArrowDownRight, LuDollarSign as DollarSign, LuActivity as Activity } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   const { transactions, totalIncome, totalExpenses, netBalance } = useTransactions();
@@ -16,14 +17,19 @@ const Dashboard = () => {
     .slice(0, 5);
 
   return (
-    <div className="main-content">
+    <motion.div
+      className="main-content"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="flex-between" style={{ marginBottom: '2rem' }}>
         <h2 style={{ margin: 0 }}>Dashboard</h2>
         <Link to="/transactions/new" className="btn">Add Transaction</Link>
       </div>
 
       <div className="dashboard-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))' }}>
-        <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay: 0.1 }} className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '50%', color: 'var(--success-color)' }}>
             <ArrowUpRight size={32} />
           </div>
@@ -31,9 +37,9 @@ const Dashboard = () => {
             <p className="text-secondary" style={{ margin: '0 0 0.25rem' }}>Total Income</p>
             <h3 style={{ margin: 0, fontSize: '1.5rem' }}>{formatCurrency(totalIncome)}</h3>
           </div>
-        </div>
+        </motion.div>
         
-        <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay: 0.2 }} className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '1rem', borderRadius: '50%', color: 'var(--danger-color)' }}>
             <ArrowDownRight size={32} />
           </div>
@@ -41,9 +47,9 @@ const Dashboard = () => {
             <p className="text-secondary" style={{ margin: '0 0 0.25rem' }}>Total Expenses</p>
             <h3 style={{ margin: 0, fontSize: '1.5rem' }}>{formatCurrency(totalExpenses)}</h3>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} transition={{ delay: 0.3 }} className="glass-panel" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', padding: '1rem', borderRadius: '50%', color: 'var(--secondary-color)' }}>
             <DollarSign size={32} />
           </div>
@@ -51,7 +57,7 @@ const Dashboard = () => {
             <p className="text-secondary" style={{ margin: '0 0 0.25rem' }}>Net Balance</p>
             <h3 style={{ margin: 0, fontSize: '1.5rem' }}>{formatCurrency(netBalance)}</h3>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className="dashboard-grid">
@@ -75,7 +81,7 @@ const Dashboard = () => {
         </div>
         <TransactionList transactions={recentTransactions} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
