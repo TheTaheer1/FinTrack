@@ -11,12 +11,12 @@ const Analytics = () => {
   const topCategory = useMemo(() => {
     const expenses = transactions.filter(t => t.type === 'expense');
     if (expenses.length === 0) return { name: 'None', amount: 0 };
-    
+
     const categoryTotals = expenses.reduce((acc, t) => {
       acc[t.category] = (acc[t.category] || 0) + Number(t.amount);
       return acc;
     }, {});
-    
+
     const entries = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]);
     return entries.length > 0 ? { name: entries[0][0], amount: entries[0][1] } : { name: 'None', amount: 0 };
   }, [transactions]);
@@ -61,7 +61,7 @@ const Analytics = () => {
 
         <div className="glass-panel" style={{ gridColumn: '1 / -1' }}>
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
-            <TrendingUp className="text-primary" /> 6-Month Expense Trend
+            <TrendingUp className="text-primary" /> Expense Trend
           </h3>
           <MonthlyLineChart transactions={transactions} />
         </div>

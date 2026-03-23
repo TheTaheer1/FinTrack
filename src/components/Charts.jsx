@@ -10,7 +10,8 @@ const COLORS = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#ef4444'
 
 export const CategoryPieChart = ({ transactions }) => {
   const data = useMemo(() => {
-    const expenses = transactions.filter(t => t.type === 'expense');
+    const now = new Date();
+    const expenses = transactions.filter(t => t.type === 'expense' && new Date(t.date) <= now);
     const categoryTotals = expenses.reduce((acc, t) => {
       acc[t.category] = (acc[t.category] || 0) + Number(t.amount);
       return acc;
@@ -53,14 +54,24 @@ export const CategoryPieChart = ({ transactions }) => {
 
 export const MonthlyLineChart = ({ transactions }) => {
   const data = useMemo(() => {
-    const end = new Date();
-    const start = subMonths(end, 5); // Last 6 months
+    if (!transactions.length) return [];
+    // Find earliest and latest transaction months
+    let minDate = new Date();
+    let maxDate = new Date();
+    transactions.forEach(t => {
+      try {
+        const d = new Date(t.date);
+        if (d < minDate) minDate = d;
+        if (d > maxDate) maxDate = d;
+      } catch {}
+    });
+    // Snap to month boundaries
+    const start = startOfMonth(minDate);
+    const end = endOfMonth(maxDate);
     const months = eachMonthOfInterval({ start, end });
-    
     return months.map(month => {
       const monthStart = startOfMonth(month);
       const monthEnd = endOfMonth(month);
-      
       const monthExpenses = transactions
         .filter(t => t.type === 'expense')
         .filter(t => {
@@ -70,9 +81,8 @@ export const MonthlyLineChart = ({ transactions }) => {
           } catch { return false; }
         })
         .reduce((sum, t) => sum + Number(t.amount), 0);
-        
       return {
-        name: format(month, 'MMM'),
+        name: format(month, 'MMM yyyy'),
         amount: monthExpenses
       };
     });
@@ -98,8 +108,16 @@ export const MonthlyLineChart = ({ transactions }) => {
 
 export const IncomeExpenseBarChart = ({ transactions }) => {
   const data = useMemo(() => {
-    const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + Number(t.amount), 0);
-    const expense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + Number(t.amount), 0);
+    const now = new Date();
+    const filtered = transactions.filter(t => {
+      try {
+        return new Date(t.date) <= now;
+      } catch {
+        return false;
+      }
+    });
+    const income = filtered.filter(t => t.type === 'income').reduce((sum, t) => sum + Number(t.amount), 0);
+    const expense = filtered.filter(t => t.type === 'expense').reduce((sum, t) => sum + Number(t.amount), 0);
     return [
       { name: 'Income', amount: income, fill: '#10b981' },
       { name: 'Expense', amount: expense, fill: '#ef4444' }

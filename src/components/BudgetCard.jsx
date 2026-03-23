@@ -16,15 +16,37 @@ const BudgetCard = () => {
       <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
         <Target className="text-primary" /> Monthly Budget Summary
       </h3>
-      
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
         <div>
           <p className="text-secondary" style={{ fontSize: '0.875rem', marginBottom: '0.25rem' }}>Total Budget</p>
-          <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{formatCurrency(monthlyBudget)}</p>
+          <p style={{
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            wordBreak: 'break-all',
+            overflowWrap: 'anywhere',
+            maxWidth: '100%',
+            whiteSpace: 'normal',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            minHeight: '2.2em',
+            lineHeight: 1.2
+          }}>{formatCurrency(monthlyBudget)}</p>
         </div>
         <div>
           <p className="text-secondary" style={{ fontSize: '0.875rem', marginBottom: '0.25rem' }}>Spent This Month</p>
-          <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--danger-color)' }}>
+          <p style={{
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            color: 'var(--danger-color)',
+            wordBreak: 'break-all',
+            overflowWrap: 'anywhere',
+            maxWidth: '100%',
+            whiteSpace: 'normal',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            minHeight: '2.2em',
+            lineHeight: 1.2
+          }}>
             <span style={{ display: 'inline-flex', alignItems: 'center' }}>
               <TrendingDown size={20} style={{ marginRight: '4px' }}/> {formatCurrency(currentMonthExpenses)}
             </span>
@@ -32,7 +54,19 @@ const BudgetCard = () => {
         </div>
         <div>
           <p className="text-secondary" style={{ fontSize: '0.875rem', marginBottom: '0.25rem' }}>Remaining</p>
-          <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: isOverBudget ? 'var(--danger-color)' : 'var(--success-color)' }}>
+          <p style={{
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            color: isOverBudget ? 'var(--danger-color)' : 'var(--success-color)',
+            wordBreak: 'break-all',
+            overflowWrap: 'anywhere',
+            maxWidth: '100%',
+            whiteSpace: 'normal',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+            minHeight: '2.2em',
+            lineHeight: 1.2
+          }}>
             <span style={{ display: 'inline-flex', alignItems: 'center' }}>
               <Wallet size={20} style={{ marginRight: '4px' }}/> {formatCurrency(remainingBudget)}
             </span>

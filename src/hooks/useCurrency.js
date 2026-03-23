@@ -18,7 +18,8 @@ export const useCurrency = () => {
     return new Intl.NumberFormat(locales[currency] || 'en-US', {
       style: 'currency',
       currency: currency,
-      maximumFractionDigits: 0
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 3
     }).format(convertedAmount);
   };
 

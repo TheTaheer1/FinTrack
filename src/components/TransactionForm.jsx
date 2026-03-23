@@ -32,7 +32,7 @@ const TransactionForm = ({ defaultValues }) => {
 
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: defaultValues ? { ...defaultValues, amount: (defaultValues.amount * rate).toFixed(2) } : {
+    defaultValues: defaultValues ? { ...defaultValues, amount: (defaultValues.amount * rate) } : {
       title: '',
       amount: '',
       category: '',
@@ -45,7 +45,7 @@ const TransactionForm = ({ defaultValues }) => {
 
   useEffect(() => {
     if (defaultValues) {
-      reset({ ...defaultValues, amount: (defaultValues.amount * rate).toFixed(2) });
+      reset({ ...defaultValues, amount: (defaultValues.amount * rate) });
     } else {
       reset({
         title: '',
@@ -101,7 +101,7 @@ const TransactionForm = ({ defaultValues }) => {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
         <div className="form-group">
           <label className="form-label">Amount ({currency})</label>
-          <input type="number" step="0.01" className="form-control" placeholder="0.00" {...register('amount')} />
+          <input type="number" step="any" min="0" inputMode="decimal" className="form-control" placeholder="0.00" {...register('amount')} />
           {errors.amount && <p className="form-error">{errors.amount.message}</p>}
         </div>
 

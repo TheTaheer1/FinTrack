@@ -166,6 +166,11 @@ option {
   box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
 }
 
+.form-control::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
 .form-error {
   color: var(--danger-color);
   font-size: 0.875rem;
@@ -224,3 +229,4 @@ option {
   align-items: center;
   gap: 0.5rem;
 }
+
