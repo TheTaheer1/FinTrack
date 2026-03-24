@@ -34,7 +34,7 @@ The application uses modern design principles like glassmorphism and an aestheti
 ### 🎨 Premium UI/UX Design
 - **Dark Theme Aesthetics**: The app features a stunning, easy-on-the-eyes dark mode using deep blues and purples.
 - **Glassmorphism Panels**: UI cards and containers use a frosted glass effect with blurred backdrops (`backdrop-filter: blur()`) to feel incredibly modern.
-- **Fully Responsive**: Using modern CSS Grid and Flexbox, the app works seamlessly and looks gorgeous whether you're on a desktop monitor, tablet, or smartphone.
+- Best viewed on screens ≥ 1024px width (laptop/desktop)
 
 ## 🛠️ Tech Stack
 
@@ -48,6 +48,12 @@ The application uses modern design principles like glassmorphism and an aestheti
 - **Notifications**: React Toastify
 - **Utility**: uuid, date-fns
 - **Styling**: Custom CSS (Glassmorphism / Dark Theme)
+
+- 📱 Responsive Support / Limitations
+
+⚠️ This application is currently optimized for desktop and laptop screens only.
+The mobile UI is not fully responsive yet and may not display correctly on smaller devices.
+Mobile support will be added in a future update.
 
 ## 🚀 Getting Started
 
